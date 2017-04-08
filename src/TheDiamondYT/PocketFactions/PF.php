@@ -93,19 +93,19 @@ class PF extends PluginBase {
 	 * TODO: set faction id in config
 	 */
 	private function checkFactions() {
-        if(!$this->factionExists("Wilderness")) {
-            $faction = new Faction(Faction::WILDERNESS_ID);
-            $faction->create();
-            $faction->setTag("Wilderness");
-            $faction->setPermanent(true);
-        }
-        if(!$this->factionExists("WarZone")) {
-            $faction = new Faction(Faction::WARZONE_ID);
-            $faction->create();
-            $faction->setTag("WarZone");
-            $faction->setDescription("Not the safest place to be.");
-            $faction->setPermanent(true);
-        }
+		if(!$this->factionExists("Wilderness")) {
+		    $faction = new Faction(Faction::WILDERNESS_ID);
+		    $faction->create();
+		    $faction->setTag("Wilderness");
+		    $faction->setPermanent(true);
+		}
+		if(!$this->factionExists("WarZone")) {
+		    $faction = new Faction(Faction::WARZONE_ID);
+		    $faction->create();
+		    $faction->setTag("WarZone");
+		    $faction->setDescription("Not the safest place to be.");
+		    $faction->setPermanent(true);
+		}
 	}
 	
 	/**
@@ -123,15 +123,16 @@ class PF extends PluginBase {
 	            $provider = new SQLiteProvider($this);
 	            break;
 	        case "yaml":
-	            $provider = new YamlProvider($this);
-	            break;
 	        default:
 	            $provider = new YamlProvider($this);
 	            break;
 	    }
 	    // This check is to allow custom data providers in the future
-	    if($provider instanceof Provider) 
+	    if($provider instanceof Provider) { 
 	        $this->provider = $provider;
+	    } else {
+		# Throw an error and/or disable plugin    
+	    }
 	}
 	
 	public function getCommandManager(): FCommandManager {
